@@ -18,14 +18,33 @@ const io = require('socket.io')(server, {
 
 io.listen(3334);
 
-const messages = [];
+const messages = [
+  {
+    id: 11,
+    message: 'Oi, gente',
+    user: 'Larica'
+  },
+  {
+    id: 22,
+    message: 'Olá',
+    user: 'Thayann'
+  },
+  {
+    id: 44,
+    message: 'Oi, Lari',
+    user: 'Banana'
+  },
+];
 
 io.on('connection', socket => {
-
   console.log(`user connected ${socket.id}`);
 
-  socket.emit('received',{ user: 'Ana', message: 'Hello, world!' });
-  socket.on('sendMessage', data => console.log(`${data.user} send this: ${data.value}`))
+  socket.emit('connection', messages);
+
+  socket.on('sendMessage', data => {
+    messages.push(data);
+    socket.broadcast.emit('newMessages', data);
+  })
 
   socket.on('disconnect', () => console.log(`user disconnected ${socket.id}`));
 });
