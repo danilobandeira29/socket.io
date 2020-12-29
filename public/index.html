@@ -16,14 +16,6 @@
     </div>
 
     <section class="messages">
-      <p class="message-received">
-        <strong>Ana:</strong>
-        message received
-      </p>
-      <p class="message-send">
-        <strong>Você:</strong>
-        message send
-      </p>
     </section>
 
     <div class="user-message">
@@ -38,14 +30,37 @@
   <script>
     const socket = io('http://localhost:3334/');
 
-    const divElement = document.querySelector('.servers-message');
+    const divElement = document.querySelector('.messages');
 
-    socket.on('helloMessage', function(data) {
+    socket.on('received', data => {
       const element = document.createElement('p');
+      const userElement = document.createElement('strong');
+      const userName = document.createTextNode(`${data.user}: `);
+      userElement.appendChild(userName);
+      element.appendChild(userElement);
+
       const text = document.createTextNode(data.message);
       element.appendChild(text);
+      element.classList.add('message-received')
       divElement.appendChild(element);
     });
+
+    const sendMessage = message => {
+      const value = document.querySelector('input[name=user-message]').value;
+
+      const element = document.createElement('p');
+      const userElement = document.createElement('strong');
+      const userName = document.createTextNode('Você: ');
+      userElement.appendChild(userName);
+      element.appendChild(userElement);
+
+      const text = document.createTextNode(value);
+      element.appendChild(text);
+      element.classList.add('message-send')
+      divElement.appendChild(element);
+
+      socket.emit('sendMessage', { user: 'Danilo', value });
+    }
     
   </script>
 </body>
