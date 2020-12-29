@@ -32,21 +32,24 @@
 
     const divElement = document.querySelector('.messages');
 
-    socket.on('received', data => {
+    const renderMessages = message => {
       const element = document.createElement('p');
       const userElement = document.createElement('strong');
-      const userName = document.createTextNode(`${data.user}: `);
+      const userName = document.createTextNode(`${message.user}: `);
       userElement.appendChild(userName);
       element.appendChild(userElement);
 
-      const text = document.createTextNode(data.message);
+      const text = document.createTextNode(message.message);
       element.appendChild(text);
-      element.classList.add('message-received')
+      element.classList.add('message-received');
       divElement.appendChild(element);
-    });
+    }
 
-    const sendMessage = message => {
-      const value = document.querySelector('input[name=user-message]').value;
+    const sendMessage = () => {
+      const userNameElement = document.querySelector('input[name=username]');
+      const messageElement = document.querySelector('input[name=user-message]');
+      const user = userNameElement.value;
+      const message = messageElement.value;
 
       const element = document.createElement('p');
       const userElement = document.createElement('strong');
@@ -54,13 +57,23 @@
       userElement.appendChild(userName);
       element.appendChild(userElement);
 
-      const text = document.createTextNode(value);
+      const text = document.createTextNode(message);
       element.appendChild(text);
       element.classList.add('message-send')
       divElement.appendChild(element);
 
-      socket.emit('sendMessage', { user: 'Danilo', value });
+      socket.emit('sendMessage', { user, message });
+
+      messageElement.value = '';
     }
+    
+    socket.on('connection', messages => {
+      for(message of messages) {
+        renderMessages(message);
+      } 
+    });
+
+    socket.on('newMessages', message => renderMessages(message));
     
   </script>
 </body>
