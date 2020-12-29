@@ -93,6 +93,8 @@ input[name=user-message] {
   border-radius: 4px;
   margin-bottom: 20px;
   padding: 1rem;
+  overflow-y: scroll
+  ;
 }
 
 .container .messages p {
