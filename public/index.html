@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Server Messages:</h1>
+  <div class="servers-message"></div>
+  <input class="input"/>
+  <button onclick="sendMessage()">Enviar</button>
+  <div class="clients-message"></div>
+  <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+  <script>
+    const socket = io('http://localhost:3334/');
+
+    const divElement = document.querySelector('.servers-message');
+
+    socket.on('helloMessage', function(data) {
+      const element = document.createElement('p');
+      const text = document.createTextNode(data.message);
+      element.appendChild(text);
+      divElement.appendChild(element);
+    });
+    
+  </script>
+</body>
+</html>
