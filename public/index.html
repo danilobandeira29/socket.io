@@ -3,14 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="./style.css" />
+  <title>Socket.io</title>
 </head>
 <body>
-  <h1>Server Messages:</h1>
-  <div class="servers-message"></div>
-  <input class="input"/>
-  <button onclick="sendMessage()">Enviar</button>
-  <div class="clients-message"></div>
+  <main class="container">
+    <h1 class='title-primary'>Socket Messages</h1>
+
+    <div class="user-container">
+      <label for="username" class='text-primary'>Username</label>
+      <input type="text" name="username" placeholder="Type your username" autocomplete="off"/>
+    </div>
+
+    <section class="messages">
+      <p class="message-received">
+        <strong>Ana:</strong>
+        message received
+      </p>
+      <p class="message-send">
+        <strong>Você:</strong>
+        message send
+      </p>
+    </section>
+
+    <div class="user-message">
+      <label for="user-message" class='text-primary'>Message</label>
+      <input type="text" name="user-message" class="input" placeholder="Type a message"/>
+    </div>
+
+    <button onclick="sendMessage()">Send</button>
+    <div class="clients-message"></div>
+  </main>
   <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
   <script>
     const socket = io('http://localhost:3334/');
