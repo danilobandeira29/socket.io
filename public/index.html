@@ -30,6 +30,12 @@
   <script>
     const socket = io('http://localhost:3334/');
 
+    document.body.addEventListener('keyup', function(event) {
+      if(event.keyCode === 13) {
+        document.querySelector('button').click();
+      }
+    })
+
     const divElement = document.querySelector('.messages');
 
     const renderMessages = message => {
