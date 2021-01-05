@@ -133,3 +133,22 @@ input[name=user-message] {
 .container .messages .message-send::after {
   border-color: transparent var(--background-color-green-medium) transparent transparent;
 }
+
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--background-color-grey-medium); 
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: var(--background-color-green-medium); 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--background-color-green-dark); 
+}
