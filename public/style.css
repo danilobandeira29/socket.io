@@ -75,15 +75,18 @@ input[name=user-message] {
 
 .container button {
   margin-top: 20px;
-  background: var(--background-color-green-medium);
   color: var(--text-color-white);
   font-size: 1.9rem;
-  cursor: pointer;
+  cursor: not-allowed;
   transition: background .3s;
-  
 }
 
-.container button:hover {
+.container button.enable {
+  background: var(--background-color-green-medium);
+  cursor: pointer;
+}
+
+.container button.enable:hover {
   background: var(--background-color-green-dark);
 }
 
