@@ -12,7 +12,7 @@
 
     <div class="user-container">
       <label for="username" class='text-primary'>Username</label>
-      <input type="text" name="username" placeholder="Type your username" autocomplete="off"/>
+      <input type="text" name="username" placeholder="Type your username" autocomplete="off" onkeyup="handleInputContent()"/>
     </div>
 
     <section class="messages">
@@ -20,10 +20,10 @@
 
     <div class="user-message">
       <label for="user-message" class='text-primary'>Message</label>
-      <input type="text" name="user-message" class="input" placeholder="Type a message"/>
+      <input type="text" name="user-message" class="input" placeholder="Type a message" autocomplete="off" onkeyup="handleInputContent()"/>
     </div>
 
-    <button onclick="sendMessage()">Send</button>
+    <button onclick="sendMessage(this)" disabled class="disable" >Send</button>
     <div class="clients-message"></div>
   </main>
   <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
@@ -45,11 +45,15 @@
       divElement.appendChild(element);
     }
 
-    const sendMessage = () => {
+    const sendMessage = (button) => {
       const userNameElement = document.querySelector('input[name=username]');
       const messageElement = document.querySelector('input[name=user-message]');
       const user = userNameElement.value;
       const message = messageElement.value;
+
+      if(!user || !message) {
+        return alert('Type your username and/or message');
+      }
 
       const element = document.createElement('p');
       const userElement = document.createElement('strong');
@@ -65,8 +69,24 @@
       socket.emit('sendMessage', { user, message });
 
       messageElement.value = '';
+      button.classList.remove('enable');
+      button.setAttribute('disabled', true);
     }
     
+    function handleInputContent() {
+      const button = document.querySelector('button');
+      const userName = document.querySelector('input[name=username]').value;
+      const messageUser = document.querySelector('input[name=user-message]').value;
+
+      if(userName && messageUser) {
+        button.classList.add('enable');
+        button.removeAttribute('disabled');
+      } else {
+        button.classList.remove('enable');
+        button.setAttribute('disabled', true);
+      }
+    }
+
     socket.on('connection', messages => {
       for(message of messages) {
         renderMessages(message);
