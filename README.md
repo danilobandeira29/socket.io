@@ -30,7 +30,7 @@ Aplicação que utiliza protocolo Websocket para troca de *messages real-time*.
   $ yarn
 ```
 
-## 🚀 Inicializando o servidor
+## 🚀 Inicializando o Projeto
 - Abra um terminal no diretório raíz da aplicação e execute:
 ```bash
   ## ou npm dev:server
