@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://ik.imagekit.io/xfddek6eqk/ezgif.com-gif-maker_cJCBiY6_u.gif" alt="preview socket messages gif">
+</p>
+
 # Sumário
 - [Sobre](#-Sobre)
 - [Desafios](#-Desafios)
